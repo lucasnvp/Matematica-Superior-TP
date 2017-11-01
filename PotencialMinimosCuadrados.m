@@ -9,6 +9,7 @@ Nro = filas;
 Xln = filas;
 Yln = filas;
 XY = filas;
+Px = filas;
 Error = filas;
 
 % Armo la columna de X=ln x
@@ -47,12 +48,13 @@ P = 10^resultado(1,1) * (recorrido.^resultado(2,1));
 
 % Error
 for i=1:filas
-    Px = round(10^resultado(1,1) * (X(i,1).^resultado(2,1)), Redondeo);
-    Error(i,1) = round((Px - Y(i,1))^2, Redondeo);
+    FuncionApox = round(10^resultado(1,1) * (X(i,1).^resultado(2,1)), Redondeo);
+    Error(i,1) = round((FuncionApox - Y(i,1))^2, Redondeo);
+    Px(i,1) = FuncionApox;
 end
 
 % Datos
-datos = table(Nro,X,Y,Xln,Yln,X2,XY,Error);
+datos = table(Nro,X,Y,Xln,Yln,X2,XY,Px,Error);
 disp(datos);
 
 % Ploteos

@@ -7,6 +7,7 @@ Y = input('ingrese los valores de Y entre [] y separados por ; :');
 [filas,columnas] = size(X);
 Nro = filas;
 XY = filas;
+Px = filas;
 Error = filas;
 
 % Armo la columna de x al cuadrado
@@ -36,12 +37,13 @@ P = resultado(1,1)*recorrido + resultado(2,1);
 
 % Error
 for i=1:filas
-    Px = round(resultado(1,1)*X(i,1) + resultado(2,1), Redondeo);
-    Error(i,1) = round((Px - Y(i,1))^2, Redondeo);
+    FuncionApox = round(resultado(1,1)*X(i,1) + resultado(2,1), Redondeo);
+    Error(i,1) = round((FuncionApox - Y(i,1))^2, Redondeo);
+    Px(i,1) = FuncionApox;
 end
 
 % Datos
-datos = table(Nro,X,Y,X2,XY,Error);
+datos = table(Nro,X,Y,X2,XY,Px,Error);
 disp(datos);
 
 % Ploteos
