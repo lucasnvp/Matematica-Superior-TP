@@ -1,5 +1,4 @@
 clc
-clear all
 
 %inicio
 Redondeo = input('ingrese la cantidad de decimales a trabajar :');

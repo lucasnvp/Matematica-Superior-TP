@@ -1,5 +1,4 @@
 clc
-clear all
 
 %inicio
 Redondeo = input('ingrese la cantidad de decimales a trabajar :');
@@ -26,13 +25,13 @@ end
 % Sumatorias de las columnas
 sumatoriaX = round(sum(X(:,1)), Redondeo);
 sumatoriaX2 = round(sum(X2(:,1)), Redondeo);
-sumatoriaY = round(sum(Yln(:,1)), Redondeo);
+sumatoriaYln = round(sum(Yln(:,1)), Redondeo);
 sumatoriaXY = round(sum(XY(:,1)), Redondeo);
 
 % Sistemas de Ecuaciones
 a = [sumatoriaX2, sumatoriaX;
     sumatoriaX, filas];
-b = [sumatoriaXY; sumatoriaY];
+b = [sumatoriaXY; sumatoriaYln];
 resultado = a\b;
 disp(resultado);
 
@@ -41,9 +40,13 @@ recorrido=0:10;
 P = exp(resultado(2,1))*exp(resultado(1,1)*recorrido);
 
 % Error
+for i=1:filas
+    Px = round(exp(resultado(2,1))*exp(resultado(1,1)*X(i,1)), Redondeo);
+    Error(i,1) = round((Px - Y(i,1))^2, Redondeo);
+end
 
 % Datos
-datos = table(Nro,X,Y,Yln,X2,XY);
+datos = table(Nro,X,Y,Yln,X2,XY,Error);
 disp(datos);
 
 % Ploteos
