@@ -7,6 +7,7 @@ Y = input('ingrese los valores de Y entre [] y separados por ; :');
 [filas,columnas] = size(X);
 Nro = filas;
 XY = filas;
+Fx = filas;
 Error = filas;
 
 % Armo la columna de 1/x
@@ -38,9 +39,14 @@ recorrido=0:0.2:10;
 P = resultado(1,1) + (resultado(2,1)* (1./recorrido));
 
 % Error
+for i=1:filas
+    FuncionApox = round(resultado(1,1) + (resultado(2,1)* (1./X(i,1))), Redondeo);
+    Error(i,1) = round((FuncionApox - Y(i,1))^2, Redondeo);
+    Fx(i,1) = FuncionApox;
+end
 
 % Datos
-datos = table(Nro,X,Y,Xinv,X2,XY);
+datos = table(Nro,X,Y,Xinv,X2,XY,Fx,Error);
 disp(datos);
 
 % Ploteos
