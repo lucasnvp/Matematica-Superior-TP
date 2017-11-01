@@ -28,7 +28,6 @@ for i=1:filas
 end
 
 % Sumatorias de las columnas
-sumatoriaN = round(sum(Nro(:,1)), Redondeo);
 sumatoriaX = round(sum(X(:,1)), Redondeo);
 sumatoriaX2 = round(sum(X2(:,1)), Redondeo);
 sumatoriaX3 = round(sum(X3(:,1)), Redondeo);
