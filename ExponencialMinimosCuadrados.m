@@ -36,7 +36,7 @@ resultado = a\b;
 disp(resultado);
 
 % Funcion P(x) = b*e^ax
-recorrido=0:10;
+recorrido=0:0.2:10;
 P = exp(resultado(2,1))*exp(resultado(1,1)*recorrido);
 
 % Error

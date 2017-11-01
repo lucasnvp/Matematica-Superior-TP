@@ -31,7 +31,7 @@ resultado = a\b;
 disp(resultado);
 
 % Funcion P(x) = ax+b
-recorrido=0:10;
+recorrido=0:0.2:10;
 P = resultado(1,1)*recorrido + resultado(2,1);
 
 % Error

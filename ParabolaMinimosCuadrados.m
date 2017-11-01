@@ -44,7 +44,7 @@ resultado = a\b;
 disp(resultado);
 
 % Funcion P(x) = ax^2+bx+c
-recorrido=0:10;
+recorrido=0:0.2:10;
 P = (resultado(1,1) * (recorrido.^2)) + resultado(2,1)*recorrido + resultado(3,1);
 
 % Error

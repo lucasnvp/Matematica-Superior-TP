@@ -42,13 +42,17 @@ resultado = a\b;
 disp(resultado);
 
 % Funcion P(x) = b*X^a
-recorrido=0:10;
+recorrido=0:0.2:10;
 P = 10^resultado(1,1) * (recorrido.^resultado(2,1));
 
 % Error
+for i=1:filas
+    Px = round(10^resultado(1,1) * (X(i,1).^resultado(2,1)), Redondeo);
+    Error(i,1) = round((Px - Y(i,1))^2, Redondeo);
+end
 
 % Datos
-datos = table(Nro,X,Y,Xln,Yln,X2,XY);
+datos = table(Nro,X,Y,Xln,Yln,X2,XY,Error);
 disp(datos);
 
 % Ploteos

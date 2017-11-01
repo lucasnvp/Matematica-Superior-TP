@@ -34,7 +34,7 @@ resultado = a\b;
 disp(resultado);
 
 % Funcion P(x) = a+b*1/x
-recorrido=0:10;
+recorrido=0:0.2:10;
 P = resultado(1,1) + (resultado(2,1)* (1./recorrido));
 
 % Error
