@@ -6,28 +6,28 @@ X = input('ingrese los valores de X entre [] y separados por ; :');
 Y = input('ingrese los valores de Y entre [] y separados por ; :');
 [filas,columnas] = size(X);
 Nro = filas;
-XY = filas;
-Yln = filas;
+exponencial_XY = filas;
+exponencial_Yln = filas;
 Px = filas;
 Error = filas;
 
 % Armo la columna de x al cuadrado
-X2 = round(X.^2, Redondeo);
+exponencial_X2 = round(X.^2, Redondeo);
 % Armo la columna de Y=ln y
 for i=1:filas
-    Yln(i,1) = round(log(Y(i,1)),Redondeo);
+    exponencial_Yln(i,1) = round(log(Y(i,1)),Redondeo);
 end
 % Armo la columna de XY 
 for i=1:filas
     Nro(i,1) = i;
-    XY(i,1) = round(X(i,1) * Yln(i,1), Redondeo);
+    exponencial_XY(i,1) = round(X(i,1) * exponencial_Yln(i,1), Redondeo);
 end
 
 % Sumatorias de las columnas
 sumatoriaX = round(sum(X(:,1)), Redondeo);
-sumatoriaX2 = round(sum(X2(:,1)), Redondeo);
-sumatoriaYln = round(sum(Yln(:,1)), Redondeo);
-sumatoriaXY = round(sum(XY(:,1)), Redondeo);
+sumatoriaX2 = round(sum(exponencial_X2(:,1)), Redondeo);
+sumatoriaYln = round(sum(exponencial_Yln(:,1)), Redondeo);
+sumatoriaXY = round(sum(exponencial_XY(:,1)), Redondeo);
 
 % Sistemas de Ecuaciones
 a = [sumatoriaX2, sumatoriaX;
@@ -48,7 +48,7 @@ for i=1:filas
 end
 
 % Datos
-datos = table(Nro,X,Y,Yln,X2,XY,Px,Error);
+datos = table(Nro,X,Y,exponencial_Yln,exponencial_X2,exponencial_XY,Px,Error);
 disp(datos);
 
 % Ploteos

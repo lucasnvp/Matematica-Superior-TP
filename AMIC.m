@@ -183,6 +183,8 @@ function btn_cargar_datos_Callback(hObject, eventdata, handles)
 global X Y Redondeo
 global matrizResultadoRecta
 global matrizResultadoParabola
+global matrizResultadoExponencial
+global matrizResultadoPotencial
 
 set(handles.tabla_de_valores,'enable','off');
 datos_tabla_inicial = get(handles.tabla_de_valores,'Data');
@@ -191,12 +193,20 @@ Y = str2double(datos_tabla_inicial(:,2));
 
 recta_minimos_cuadrados();
 parabola_minimos_cuadrados();
+exponencial_minimos_cuadrados();
+potencial_minimos_cuadrados();
 
 funcionAproximanteRecta = sprintf('P(x) = %0.4f X + %0.4f', round(matrizResultadoRecta(1,1),Redondeo), round(matrizResultadoRecta(2,1),Redondeo));
 set(handles.rcm_funcion_aproximante, 'String', funcionAproximanteRecta);
 
 funcionAproximanteParabola = sprintf('P(x) = %0.4f X^2 + %0.4f X + %0.4f', round(matrizResultadoParabola(1,1),Redondeo), round(matrizResultadoParabola(2,1),Redondeo), round(matrizResultadoParabola(3,1),Redondeo));
 set(handles.pcm_funcion_aproximante, 'String', funcionAproximanteParabola);
+
+funcionAproximanteExponencial = sprintf('P(x) = %0.4f e^%0.4f X', round(exp(matrizResultadoExponencial(2,1)),Redondeo), round(matrizResultadoExponencial(1,1),Redondeo));
+set(handles.ae_funcion_aproximante, 'String', funcionAproximanteExponencial);
+
+funcionAproximantePotencial = sprintf('P(x) = %0.4f X^%0.4f ', round(exp(10^matrizResultadoPotencial(2,1)),Redondeo), round(matrizResultadoPotencial(1,1),Redondeo));
+set(handles.ap_funcion_aproximante, 'String', funcionAproximantePotencial);
 
 % --------------------------------------------------------------------
 function Untitled_1_Callback(hObject, eventdata, handles)
@@ -394,10 +404,79 @@ matrizResultadoParabola = a\b;
 function exponencial_minimos_cuadrados()
 
 global X Y Redondeo
+global TablaDeValoresExponencial
+global matrizResultadoExponencial
+
+[filas,~] = size(X);
+exponencial_XY = filas;
+exponencial_Yln = filas;
+
+% Armo la columna de x al cuadrado
+exponencial_X2 = round(X.^2, Redondeo);
+% Armo la columna de Y=ln y
+for i=1:filas
+    exponencial_Yln(i,1) = round(log(Y(i,1)),Redondeo);
+end
+% Armo la columna de XY 
+for i=1:filas
+    exponencial_XY(i,1) = round(X(i,1) * exponencial_Yln(i,1), Redondeo);
+end
+
+% Tabla de valores
+TablaDeValoresExponencial = [X Y exponencial_X2 exponencial_Yln  exponencial_XY ];
+
+% Sumatorias de las columnas
+sumatoriaX = round(sum(X(:,1)), Redondeo);
+sumatoriaX2 = round(sum(exponencial_X2(:,1)), Redondeo);
+sumatoriaYln = round(sum(exponencial_Yln(:,1)), Redondeo);
+sumatoriaXY = round(sum(exponencial_XY(:,1)), Redondeo);
+
+% Sistemas de Ecuaciones
+a = [sumatoriaX2, sumatoriaX;
+    sumatoriaX, filas];
+b = [sumatoriaXY; sumatoriaYln];
+matrizResultadoExponencial = a\b;
 
 function potencial_minimos_cuadrados()
 
 global X Y Redondeo
+global TablaDeValoresPotencial
+global matrizResultadoPotencial
+
+[filas,~] = size(X);
+potencial_Xln = filas;
+potencial_Yln = filas;
+potencial_XY = filas;
+
+% Armo la columna de X=ln x
+for i=1:filas
+    potencial_Xln(i,1) = round(log10(X(i,1)),Redondeo);
+end
+% Armo la columna de Y=ln y
+for i=1:filas
+    potencial_Yln(i,1) = round(log10(Y(i,1)),Redondeo);
+end
+% Armo la columna de XY 
+for i=1:filas
+    potencial_XY(i,1) = round(potencial_Xln(i,1) * potencial_Yln(i,1), Redondeo);
+end
+% Armo la columna de x al cuadrado
+X2 = round(potencial_Xln.^2, Redondeo);
+
+% Tabla de valores
+TablaDeValoresPotencial = [X Y potencial_Xln X2 potencial_Yln  potencial_XY ];
+
+% Sumatorias de las columnas
+sumatoriaXln = round(sum(potencial_Xln(:,1)), Redondeo);
+sumatoriaX2 = round(sum(X2(:,1)), Redondeo);
+sumatoriaYln = round(sum(potencial_Yln(:,1)), Redondeo);
+sumatoriaXY = round(sum(potencial_XY(:,1)), Redondeo);
+
+% Sistemas de Ecuaciones
+a = [filas, sumatoriaXln;
+    sumatoriaXln, sumatoriaX2];
+b = [sumatoriaYln; sumatoriaXY];
+matrizResultadoPotencial = a\b;
 
 function hiperbola_minimos_cuadrados()
 

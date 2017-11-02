@@ -6,34 +6,34 @@ X = input('ingrese los valores de X entre [] y separados por ; :');
 Y = input('ingrese los valores de Y entre [] y separados por ; :');
 [filas,columnas] = size(X);
 Nro = filas;
-Xln = filas;
-Yln = filas;
-XY = filas;
+potencial_Xln = filas;
+potencial_Yln = filas;
+potencial_XY = filas;
 Px = filas;
 Error = filas;
 
 % Armo la columna de X=ln x
 for i=1:filas
-    Xln(i,1) = round(log10(X(i,1)),Redondeo);
+    potencial_Xln(i,1) = round(log10(X(i,1)),Redondeo);
 end
 % Armo la columna de Y=ln y
 for i=1:filas
-    Yln(i,1) = round(log10(Y(i,1)),Redondeo);
+    potencial_Yln(i,1) = round(log10(Y(i,1)),Redondeo);
 end
 % Armo la columna de XY 
 for i=1:filas
     Nro(i,1) = i;
-    XY(i,1) = round(Xln(i,1) * Yln(i,1), Redondeo);
+    potencial_XY(i,1) = round(potencial_Xln(i,1) * potencial_Yln(i,1), Redondeo);
 end
 % Armo la columna de x al cuadrado
-X2 = round(Xln.^2, Redondeo);
+X2 = round(potencial_Xln.^2, Redondeo);
 
 % Sumatorias de las columnas
 sumatoriaX = round(sum(X(:,1)), Redondeo);
-sumatoriaXln = round(sum(Xln(:,1)), Redondeo);
+sumatoriaXln = round(sum(potencial_Xln(:,1)), Redondeo);
 sumatoriaX2 = round(sum(X2(:,1)), Redondeo);
-sumatoriaYln = round(sum(Yln(:,1)), Redondeo);
-sumatoriaXY = round(sum(XY(:,1)), Redondeo);
+sumatoriaYln = round(sum(potencial_Yln(:,1)), Redondeo);
+sumatoriaXY = round(sum(potencial_XY(:,1)), Redondeo);
 
 % Sistemas de Ecuaciones
 a = [filas, sumatoriaXln;
@@ -54,7 +54,7 @@ for i=1:filas
 end
 
 % Datos
-datos = table(Nro,X,Y,Xln,Yln,X2,XY,Px,Error);
+datos = table(Nro,X,Y,potencial_Xln,potencial_Yln,X2,potencial_XY,Px,Error);
 disp(datos);
 
 % Ploteos
