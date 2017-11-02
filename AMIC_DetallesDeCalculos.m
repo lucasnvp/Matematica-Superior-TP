@@ -110,6 +110,23 @@ switch NroCasoDeAproximacion
         encabezado_tabla_detalles = {'X' 'Y' 'X^2' 'Ln Y' 'X*Y'};
  
     case 4 % Caso de Potencial
+        % Armo la columna de X=ln x
+        for i=1:filas
+            Xln(i,1) = round(log10(X(i,1)),Redondeo);
+        end
+        % Armo la columna de Y=ln y
+        for i=1:filas
+            Yln(i,1) = round(log10(Y(i,1)),Redondeo);
+        end
+        % Armo la columna de XY 
+        for i=1:filas
+            XY(i,1) = round(Xln(i,1) * Yln(i,1), Redondeo);
+        end
+        % Armo la columna de x al cuadrado
+        X2 = round(Xln.^2, Redondeo);
+        
+        valores_tabla = [X Y Xln X2 Yln XY];
+        encabezado_tabla_detalles = {'X' 'Y' 'Ln X' 'X^2' 'Ln Y' 'X*Y'};
         
     case 5 % Caso de Hiperbola
         
