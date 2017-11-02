@@ -22,7 +22,7 @@ function varargout = AMIC(varargin)
 
 % Edit the above text to modify the response to help AMIC
 
-% Last Modified by GUIDE v2.5 02-Nov-2017 11:34:00
+% Last Modified by GUIDE v2.5 02-Nov-2017 15:03:46
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -153,6 +153,11 @@ set(handles.tabla_de_valores,'visible','off');
 set(handles.btn_cargar_datos,'visible','off');
 set(handles.tabla_de_valores,'enable','on');
 
+set(handles.rcm_funcion_aproximante, 'String', 'P(x) = A X + B');
+set(handles.pcm_funcion_aproximante, 'String', 'P(x) = A X^2 + B X + C');
+set(handles.ae_funcion_aproximante, 'String', 'P(x) = B e^AX');
+set(handles.ap_funcion_aproximante, 'String', 'P(x) = B X^A');
+set(handles.ah_funcion_aproximante, 'String', 'P(x) = AX / (B + X)');
 
 % --- Executes on selection change in menu_aproximacion.
 function menu_aproximacion_Callback(hObject, eventdata, handles)

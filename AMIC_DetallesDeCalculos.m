@@ -62,7 +62,7 @@ guidata(hObject, handles);
 % uiwait(handles.figure1);
 
 % Valores Globales
-global X Y NroCasoDeAproximacion Redondeo
+global NroCasoDeAproximacion
 
 % Cargo los valores a la tabla segun sea la aproximacion
 global TablaDeValoresRecta
@@ -71,8 +71,6 @@ global TablaDeValoresExponencial
 global TablaDeValoresPotencial
 global TablaDeValoresHiperbola
 
-[filas,~] = size(X);
-XY = filas;
 switch NroCasoDeAproximacion
     case 1 % Caso de Recta
         valores_tabla = TablaDeValoresRecta;
