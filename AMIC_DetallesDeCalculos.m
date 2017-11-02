@@ -71,7 +71,6 @@ switch NroCasoDeAproximacion
     case 1 % Caso de Recta
         % Armo la columna de x al cuadrado
         X2 = round(X.^2, Redondeo);
-        
         % Armo la columna de XY 
         for i=1:filas
             XY(i,1) = round(X(i,1) * Y(i,1),Redondeo);
@@ -79,6 +78,28 @@ switch NroCasoDeAproximacion
         
         valores_tabla = [X Y X2 XY];
         encabezado_tabla_detalles = {'X' 'Y' 'X^2' 'X*Y'};
+    
+    case 2 % Caso de Parabola
+        % Armo la columna de x al cuadrado
+        X2 = round(X.^2, Redondeo);
+        % Armo la columna de x al cubo
+        X3 = round(X.^3, Redondeo);
+        % Armo la columna de x a la cuarta
+        X4 = round(X.^4, Redondeo);
+        % Armo la columna de XY 
+        for i=1:filas
+            XY(i,1) = round(X(i,1) * Y(i,1),Redondeo);
+        end
+        
+        valores_tabla = [X Y X2 X3 X4 XY];
+        encabezado_tabla_detalles = {'X' 'Y' 'X^2' 'X^3' 'X^4' 'X*Y'};
+        
+    case 3 % Caso de Exponencial
+        
+    case 4 % Caso de Potencial
+        
+    case 5 % Caso de Hiperbola
+        
 end
 
 set(handles.tabla_de_calculos,'Data',valores_tabla);
