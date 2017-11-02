@@ -22,7 +22,7 @@ function varargout = AMIC(varargin)
 
 % Edit the above text to modify the response to help AMIC
 
-% Last Modified by GUIDE v2.5 02-Nov-2017 16:41:00
+% Last Modified by GUIDE v2.5 02-Nov-2017 16:59:21
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -327,9 +327,12 @@ function recta_minimos_cuadrados()
 global X Y Redondeo
 global TablaDeValoresRecta
 global matrizResultadoRecta
+global ErrorRecta PxRecta
 
 [filas,~] = size(X);
 recta_XY = filas;
+PxRecta = filas;
+ErrorRecta = filas;
 
 % Armo la columna de x al cuadrado
 recta_X2 = round(X.^2, Redondeo);
@@ -353,15 +356,25 @@ a = [sumatoriaX2, sumatoriaX;
 b = [sumatoriaXY ; sumatoriaY];
 matrizResultadoRecta = a\b;
 
+% Error
+for i=1:filas
+    FuncionApox = round(matrizResultadoRecta(1,1)*X(i,1) + matrizResultadoRecta(2,1), Redondeo);
+    ErrorRecta(i,1) = round((FuncionApox - Y(i,1))^2, Redondeo);
+    PxRecta(i,1) = FuncionApox;
+end
+
 function parabola_minimos_cuadrados()
 
 global X Y Redondeo
 global TablaDeValoresParabola
 global matrizResultadoParabola
+global ErrorParabola PxParabola
 
 [filas,~] = size(X);
 parabola_XY = filas;
 parabola_X2Y = filas;
+PxParabola = filas;
+ErrorParabola = filas;
 
 % Armo la columna de x al cuadrado
 parabola_X2 = round(X.^2, Redondeo);
@@ -397,11 +410,19 @@ a = [sumatoriaX4, sumatoriaX3, sumatoriaX2;
 b = [sumatoriaX2Y ; sumatoriaXY; sumatoriaY];
 matrizResultadoParabola = a\b;
 
+% Error
+for i=1:filas
+    FuncionApox = round(matrizResultadoParabola(1,1)*(X(i,1)^2) + matrizResultadoParabola(2,1)*X(i,1) + matrizResultadoParabola(3,1), Redondeo);
+    ErrorParabola(i,1) = round((FuncionApox - Y(i,1))^2, Redondeo);
+    PxParabola(i,1) = FuncionApox;
+end
+
 function exponencial_minimos_cuadrados()
 
 global X Y Redondeo
 global TablaDeValoresExponencial
 global matrizResultadoExponencial
+global ErrorExponencial PxExponencial
 
 [filas,~] = size(X);
 exponencial_XY = filas;
@@ -433,11 +454,19 @@ a = [sumatoriaX2, sumatoriaX;
 b = [sumatoriaXY; sumatoriaYln];
 matrizResultadoExponencial = a\b;
 
+% Error
+for i=1:filas
+    FuncionApox = round(exp(matrizResultadoExponencial(2,1))*exp(matrizResultadoExponencial(1,1)*X(i,1)), Redondeo);
+    ErrorExponencial(i,1) = round((FuncionApox - Y(i,1))^2, Redondeo);
+    PxExponencial(i,1) = FuncionApox;
+end
+
 function potencial_minimos_cuadrados()
 
 global X Y Redondeo
 global TablaDeValoresPotencial
 global matrizResultadoPotencial
+global ErrorPotencial PxPotencial
 
 [filas,~] = size(X);
 potencial_Xln = filas;
@@ -474,11 +503,19 @@ a = [filas, sumatoriaXln;
 b = [sumatoriaYln; sumatoriaXY];
 matrizResultadoPotencial = a\b;
 
+% Error
+for i=1:filas
+    FuncionApox = round(10^matrizResultadoPotencial(1,1) * (X(i,1).^matrizResultadoPotencial(2,1)), Redondeo);
+    ErrorPotencial(i,1) = round((FuncionApox - Y(i,1))^2, Redondeo);
+    PxPotencial(i,1) = FuncionApox;
+end
+
 function hiperbola_minimos_cuadrados()
 
 global X Y Redondeo
 global TablaDeValoresHiperbola
 global matrizResultadoHiperbola
+global ErrorHiperbola PxHiperbola
 
 [filas,~] = size(X);
 hiperbola_XY = filas;
@@ -506,3 +543,25 @@ a = [filas, sumatoriaXinv;
     sumatoriaXinv, sumatoriaX2];
 b = [sumatoriaY; sumatoriaXY];
 matrizResultadoHiperbola = a\b;
+
+% Error
+for i=1:filas
+    FuncionApox = round(matrizResultadoHiperbola(1,1) + (matrizResultadoHiperbola(2,1)* (1./X(i,1))), Redondeo);
+    ErrorHiperbola(i,1) = round((FuncionApox - Y(i,1))^2, Redondeo);
+    PxHiperbola(i,1) = FuncionApox;
+end
+
+% --------------------------------------------------------------------
+function comparar_Callback(hObject, eventdata, handles)
+global X Y TablaDeValoresComparacion
+global NroCasoDeAproximacion
+global ErrorRecta PxRecta
+global ErrorParabola PxParabola
+global ErrorExponencial PxExponencial
+global ErrorPotencial PxPotencial
+global ErrorHiperbola PxHiperbola
+
+TablaDeValoresComparacion = [X Y PxRecta ErrorRecta PxParabola ErrorParabola PxExponencial ErrorExponencial PxPotencial ErrorPotencial PxHiperbola ErrorHiperbola];
+
+NroCasoDeAproximacion = 6;
+AMIC_DetallesDeCalculos
