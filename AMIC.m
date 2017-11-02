@@ -22,7 +22,7 @@ function varargout = AMIC(varargin)
 
 % Edit the above text to modify the response to help AMIC
 
-% Last Modified by GUIDE v2.5 02-Nov-2017 16:28:29
+% Last Modified by GUIDE v2.5 02-Nov-2017 16:35:02
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -298,10 +298,10 @@ NroCasoDeAproximacion = 4;
 AMIC_DetallesDeCalculos
 
 % --------------------------------------------------------------------
-function ae_funcion_Callback(hObject, eventdata, handles)
-% hObject    handle to ae_funcion (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
+function ae_grafica_Callback(hObject, eventdata, handles)
+global X Px matrizResultadoExponencial
+Px = exp(matrizResultadoExponencial(2,1))*exp(matrizResultadoExponencial(1,1)*X);
+AMIC_grafico
 
 
 % --------------------------------------------------------------------
