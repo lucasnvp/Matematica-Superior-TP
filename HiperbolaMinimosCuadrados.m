@@ -6,26 +6,26 @@ X = input('ingrese los valores de X entre [] y separados por ; :');
 Y = input('ingrese los valores de Y entre [] y separados por ; :');
 [filas,columnas] = size(X);
 Nro = filas;
-XY = filas;
+hiperbola_XY = filas;
 Px = filas;
 Error = filas;
 
 % Armo la columna de 1/x
-Xinv = round(X.^-1, Redondeo);
+hiperbola_Xinv = round(X.^-1, Redondeo);
 % Armo la columna de 1/x al cuadrado
-X2 = round(X.^-2, Redondeo);
+hiperbola_X2 = round(X.^-2, Redondeo);
 % Armo la columna de XY 
 for i=1:filas
     Nro(i,1) = i;
-    XY(i,1) = round(Xinv(i,1) * Y(i,1), Redondeo);
+    hiperbola_XY(i,1) = round(hiperbola_Xinv(i,1) * Y(i,1), Redondeo);
 end
 
 % Sumatorias de las columnas
 sumatoriaX = round(sum(X(:,1)), Redondeo);
 sumatoriaY = round(sum(Y(:,1)), Redondeo);
-sumatoriaXinv = round(sum(Xinv(:,1)), Redondeo);
-sumatoriaX2 = round(sum(X2(:,1)), Redondeo);
-sumatoriaXY = round(sum(XY(:,1)), Redondeo);
+sumatoriaXinv = round(sum(hiperbola_Xinv(:,1)), Redondeo);
+sumatoriaX2 = round(sum(hiperbola_X2(:,1)), Redondeo);
+sumatoriaXY = round(sum(hiperbola_XY(:,1)), Redondeo);
 
 % Sistemas de Ecuaciones
 a = [filas, sumatoriaXinv;
@@ -46,7 +46,7 @@ for i=1:filas
 end
 
 % Datos
-datos = table(Nro,X,Y,Xinv,X2,XY,Px,Error);
+datos = table(Nro,X,Y,hiperbola_Xinv,hiperbola_X2,hiperbola_XY,Px,Error);
 disp(datos);
 
 % Ploteos

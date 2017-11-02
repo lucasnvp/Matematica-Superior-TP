@@ -185,6 +185,7 @@ global matrizResultadoRecta
 global matrizResultadoParabola
 global matrizResultadoExponencial
 global matrizResultadoPotencial
+global matrizResultadoHiperbola
 
 set(handles.tabla_de_valores,'enable','off');
 datos_tabla_inicial = get(handles.tabla_de_valores,'Data');
@@ -195,6 +196,7 @@ recta_minimos_cuadrados();
 parabola_minimos_cuadrados();
 exponencial_minimos_cuadrados();
 potencial_minimos_cuadrados();
+hiperbola_minimos_cuadrados();
 
 funcionAproximanteRecta = sprintf('P(x) = %0.4f X + %0.4f', round(matrizResultadoRecta(1,1),Redondeo), round(matrizResultadoRecta(2,1),Redondeo));
 set(handles.rcm_funcion_aproximante, 'String', funcionAproximanteRecta);
@@ -205,8 +207,11 @@ set(handles.pcm_funcion_aproximante, 'String', funcionAproximanteParabola);
 funcionAproximanteExponencial = sprintf('P(x) = %0.4f e^%0.4f X', round(exp(matrizResultadoExponencial(2,1)),Redondeo), round(matrizResultadoExponencial(1,1),Redondeo));
 set(handles.ae_funcion_aproximante, 'String', funcionAproximanteExponencial);
 
-funcionAproximantePotencial = sprintf('P(x) = %0.4f X^%0.4f ', round(exp(10^matrizResultadoPotencial(2,1)),Redondeo), round(matrizResultadoPotencial(1,1),Redondeo));
+funcionAproximantePotencial = sprintf('P(x) = %0.4f + %0.4f X ', round(10^matrizResultadoPotencial(2,1),Redondeo), round(matrizResultadoPotencial(1,1),Redondeo));
 set(handles.ap_funcion_aproximante, 'String', funcionAproximantePotencial);
+
+funcionAproximanteHiperbola = sprintf('P(x) = %0.4f + %0.4f / X ', round(matrizResultadoHiperbola(1,1),Redondeo), round(matrizResultadoPotencial(2,1),Redondeo));
+set(handles.ah_funcion_aproximante, 'String', funcionAproximanteHiperbola);
 
 % --------------------------------------------------------------------
 function Untitled_1_Callback(hObject, eventdata, handles)
@@ -481,3 +486,32 @@ matrizResultadoPotencial = a\b;
 function hiperbola_minimos_cuadrados()
 
 global X Y Redondeo
+global TablaDeValoresHiperbola
+global matrizResultadoHiperbola
+
+[filas,~] = size(X);
+hiperbola_XY = filas;
+
+% Armo la columna de 1/x
+hiperbola_Xinv = round(X.^-1, Redondeo);
+% Armo la columna de 1/x al cuadrado
+hiperbola_X2 = round(X.^-2, Redondeo);
+% Armo la columna de XY 
+for i=1:filas
+    hiperbola_XY(i,1) = round(hiperbola_Xinv(i,1) * Y(i,1), Redondeo);
+end
+
+% Tabla de valores
+TablaDeValoresHiperbola = [X Y hiperbola_Xinv hiperbola_X2 hiperbola_XY ];
+
+% Sumatorias de las columnas
+sumatoriaY = round(sum(Y(:,1)), Redondeo);
+sumatoriaXinv = round(sum(hiperbola_Xinv(:,1)), Redondeo);
+sumatoriaX2 = round(sum(hiperbola_X2(:,1)), Redondeo);
+sumatoriaXY = round(sum(hiperbola_XY(:,1)), Redondeo);
+
+% Sistemas de Ecuaciones
+a = [filas, sumatoriaXinv;
+    sumatoriaXinv, sumatoriaX2];
+b = [sumatoriaY; sumatoriaXY];
+matrizResultadoHiperbola = a\b;

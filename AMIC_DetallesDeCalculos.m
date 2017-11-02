@@ -65,64 +65,33 @@ guidata(hObject, handles);
 global X Y NroCasoDeAproximacion Redondeo
 
 % Cargo los valores a la tabla segun sea la aproximacion
+global TablaDeValoresRecta
+global TablaDeValoresParabola
+global TablaDeValoresExponencial
+global TablaDeValoresPotencial
+global TablaDeValoresHiperbola
+
 [filas,~] = size(X);
 XY = filas;
 switch NroCasoDeAproximacion
     case 1 % Caso de Recta
-        global TablaDeValoresRecta
         valores_tabla = TablaDeValoresRecta;
         encabezado_tabla_detalles = {'X' 'Y' 'X^2' 'X*Y'};
     
     case 2 % Caso de Parabola
-        global TablaDeValoresParabola
         valores_tabla = TablaDeValoresParabola;
         encabezado_tabla_detalles = {'X' 'Y' 'X^2' 'X^3' 'X^4' 'X*Y' 'X^2 * Y'};
         
     case 3 % Caso de Exponencial
-        % Armo la columna de x al cuadrado
-        X2 = round(X.^2, Redondeo);
-        % Armo la columna de Y=ln y
-        for i=1:filas
-            Yln(i,1) = round(log(Y(i,1)),Redondeo);
-        end
-        % Armo la columna de XY 
-        for i=1:filas
-            XY(i,1) = round(X(i,1) * Yln(i,1), Redondeo);
-        end
-        
-        valores_tabla = [X Y X2 Yln XY];
+        valores_tabla = TablaDeValoresExponencial;
         encabezado_tabla_detalles = {'X' 'Y' 'X^2' 'Ln Y' 'X*Y'};
  
     case 4 % Caso de Potencial
-        % Armo la columna de X=ln x
-        for i=1:filas
-            Xln(i,1) = round(log10(X(i,1)),Redondeo);
-        end
-        % Armo la columna de Y=ln y
-        for i=1:filas
-            Yln(i,1) = round(log10(Y(i,1)),Redondeo);
-        end
-        % Armo la columna de XY 
-        for i=1:filas
-            XY(i,1) = round(Xln(i,1) * Yln(i,1), Redondeo);
-        end
-        % Armo la columna de x al cuadrado
-        X2 = round(Xln.^2, Redondeo);
-        
-        valores_tabla = [X Y Xln X2 Yln XY];
+        valores_tabla = TablaDeValoresPotencial;
         encabezado_tabla_detalles = {'X' 'Y' 'Ln X' 'X^2' 'Ln Y' 'X*Y'};
         
     case 5 % Caso de Hiperbola
-        % Armo la columna de 1/x
-        Xinv = round(X.^-1, Redondeo);
-        % Armo la columna de 1/x al cuadrado
-        X2 = round(X.^-2, Redondeo);
-        % Armo la columna de XY 
-        for i=1:filas
-            XY(i,1) = round(Xinv(i,1) * Y(i,1), Redondeo);
-        end
-        
-        valores_tabla = [X Y Xinv X2 XY];
+        valores_tabla = TablaDeValoresHiperbola;
         encabezado_tabla_detalles = {'X' 'Y' '1 / X' '1 / X^2' 'X*Y'};
 
 end
