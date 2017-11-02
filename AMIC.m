@@ -22,7 +22,7 @@ function varargout = AMIC(varargin)
 
 % Edit the above text to modify the response to help AMIC
 
-% Last Modified by GUIDE v2.5 02-Nov-2017 15:13:53
+% Last Modified by GUIDE v2.5 02-Nov-2017 16:28:29
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -311,10 +311,10 @@ NroCasoDeAproximacion = 3;
 AMIC_DetallesDeCalculos
 
 % --------------------------------------------------------------------
-function pmc_funcion_Callback(hObject, eventdata, handles)
-% hObject    handle to pmc_funcion (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
+function pmc_grafica_Callback(hObject, eventdata, handles)
+global X Px matrizResultadoParabola
+Px = matrizResultadoParabola(1,1) * (X.^2) + matrizResultadoParabola(2,1) * X + matrizResultadoParabola(3,1);
+AMIC_grafico
 
 
 % --------------------------------------------------------------------
