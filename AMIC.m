@@ -22,7 +22,7 @@ function varargout = AMIC(varargin)
 
 % Edit the above text to modify the response to help AMIC
 
-% Last Modified by GUIDE v2.5 02-Nov-2017 15:03:46
+% Last Modified by GUIDE v2.5 02-Nov-2017 15:13:53
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -238,11 +238,10 @@ function Untitled_3_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % --------------------------------------------------------------------
-function rmc_funcion_Callback(hObject, eventdata, handles)
-% hObject    handle to rmc_funcion (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
+function rmc_grafica_Callback(hObject, eventdata, handles)
+global X Px matrizResultadoRecta
+Px = matrizResultadoRecta(1,1) * X + matrizResultadoRecta(2,1);
+AMIC_grafico
 
 % --------------------------------------------------------------------
 function rmc_calculos_Callback(hObject, eventdata, handles)
@@ -281,9 +280,6 @@ function ah_funcion_Callback(hObject, eventdata, handles)
 
 % --------------------------------------------------------------------
 function ah_calculos_Callback(hObject, eventdata, handles)
-% hObject    handle to ah_calculos (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 global NroCasoDeAproximacion
 NroCasoDeAproximacion = 5;
 AMIC_DetallesDeCalculos
@@ -297,9 +293,6 @@ function ap_funcion_Callback(hObject, eventdata, handles)
 
 % --------------------------------------------------------------------
 function ap_calculos_Callback(hObject, eventdata, handles)
-% hObject    handle to ap_calculos (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 global NroCasoDeAproximacion
 NroCasoDeAproximacion = 4;
 AMIC_DetallesDeCalculos
@@ -313,9 +306,6 @@ function ae_funcion_Callback(hObject, eventdata, handles)
 
 % --------------------------------------------------------------------
 function ae_calculos_Callback(hObject, eventdata, handles)
-% hObject    handle to ae_calculos (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 global NroCasoDeAproximacion
 NroCasoDeAproximacion = 3;
 AMIC_DetallesDeCalculos
@@ -329,9 +319,6 @@ function pmc_funcion_Callback(hObject, eventdata, handles)
 
 % --------------------------------------------------------------------
 function pmc_calculos_Callback(hObject, eventdata, handles)
-% hObject    handle to pmc_calculos (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 global NroCasoDeAproximacion
 NroCasoDeAproximacion = 2;
 AMIC_DetallesDeCalculos
