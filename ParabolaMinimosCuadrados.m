@@ -7,16 +7,16 @@ Y = input('ingrese los valores de Y entre [] y separados por ; :');
 [filas,columnas] = size(X);
 Nro = filas;
 XY = filas;
-X2Y = filas;
+parabola_X2Y = filas;
 Px = filas;
 Error = filas;
 
 % Armo la columna de x al cuadrado
-X2 = round(X.^2, Redondeo);
+parabola_X2 = round(X.^2, Redondeo);
 % Armo la columna de x al cubo
-X3 = round(X.^3, Redondeo);
+parabola_X3 = round(X.^3, Redondeo);
 % Armo la columna de x a la cuarta
-X4 = round(X.^4, Redondeo);
+parabola_X4 = round(X.^4, Redondeo);
 % Armo la columna de XY 
 for i=1:filas
     Nro(i,1) = i;
@@ -24,17 +24,17 @@ for i=1:filas
 end
 % Armo la columna de X2Y 
 for i=1:filas
-    X2Y(i,1) = round(X2(i,1) * Y(i,1), Redondeo);
+    parabola_X2Y(i,1) = round(parabola_X2(i,1) * Y(i,1), Redondeo);
 end
 
 % Sumatorias de las columnas
 sumatoriaX = round(sum(X(:,1)), Redondeo);
-sumatoriaX2 = round(sum(X2(:,1)), Redondeo);
-sumatoriaX3 = round(sum(X3(:,1)), Redondeo);
-sumatoriaX4 = round(sum(X4(:,1)), Redondeo);
+sumatoriaX2 = round(sum(parabola_X2(:,1)), Redondeo);
+sumatoriaX3 = round(sum(parabola_X3(:,1)), Redondeo);
+sumatoriaX4 = round(sum(parabola_X4(:,1)), Redondeo);
 sumatoriaY = round(sum(Y(:,1)), Redondeo);
 sumatoriaXY = round(sum(XY(:,1)), Redondeo);
-sumatoriaX2Y = round(sum(X2Y(:,1)), Redondeo);
+sumatoriaX2Y = round(sum(parabola_X2Y(:,1)), Redondeo);
 
 % Sistemas de Ecuaciones
 a = [sumatoriaX4, sumatoriaX3, sumatoriaX2;
@@ -56,7 +56,7 @@ for i=1:filas
 end
 
 % Datos
-datos = table(Nro,X,Y,X2,X3,X4,XY,X2Y,Px,Error);
+datos = table(Nro,X,Y,parabola_X2,parabola_X3,parabola_X4,XY,parabola_X2Y,Px,Error);
 disp(datos);
 
 % Ploteos

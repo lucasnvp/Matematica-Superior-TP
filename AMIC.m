@@ -22,7 +22,7 @@ function varargout = AMIC(varargin)
 
 % Edit the above text to modify the response to help AMIC
 
-% Last Modified by GUIDE v2.5 02-Nov-2017 01:44:34
+% Last Modified by GUIDE v2.5 02-Nov-2017 11:34:00
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -124,6 +124,7 @@ global Redondeo
 
 Filas = str2double(get(handles.cantPuntos,'String'));
 Redondeo = str2double(get(handles.cantDecimales,'String'));
+
 set(handles.txtCantPuntos,'visible','off');
 set(handles.cantPuntos,'visible','off');
 set(handles.txtCantDecimales,'visible','off');
@@ -181,6 +182,7 @@ function btn_cargar_datos_Callback(hObject, eventdata, handles)
 
 global X Y Redondeo
 global matrizResultadoRecta
+global matrizResultadoParabola
 
 set(handles.tabla_de_valores,'enable','off');
 datos_tabla_inicial = get(handles.tabla_de_valores,'Data');
@@ -188,9 +190,13 @@ X = str2double(datos_tabla_inicial(:,1));
 Y = str2double(datos_tabla_inicial(:,2));
 
 recta_minimos_cuadrados();
+parabola_minimos_cuadrados();
 
-funcionAproximanteRecta = sprintf('P(x) = %f X + %f', round(matrizResultadoRecta(1,1),Redondeo), round(matrizResultadoRecta(2,1),Redondeo));
+funcionAproximanteRecta = sprintf('P(x) = %0.4f X + %0.4f', round(matrizResultadoRecta(1,1),Redondeo), round(matrizResultadoRecta(2,1),Redondeo));
 set(handles.rcm_funcion_aproximante, 'String', funcionAproximanteRecta);
+
+funcionAproximanteParabola = sprintf('P(x) = %0.4f X^2 + %0.4f X + %0.4f', round(matrizResultadoParabola(1,1),Redondeo), round(matrizResultadoParabola(2,1),Redondeo), round(matrizResultadoParabola(3,1),Redondeo));
+set(handles.pcm_funcion_aproximante, 'String', funcionAproximanteParabola);
 
 % --------------------------------------------------------------------
 function Untitled_1_Callback(hObject, eventdata, handles)
@@ -313,7 +319,7 @@ AMIC_DetallesDeCalculos
 function recta_minimos_cuadrados()
 
 global X Y Redondeo
-global TablaDeValores
+global TablaDeValoresRecta
 global matrizResultadoRecta
 
 [filas,~] = size(X);
@@ -327,7 +333,7 @@ for i=1:filas
 end
 
 % Tabla de valores
-TablaDeValores = [X Y recta_X2 recta_XY];
+TablaDeValoresRecta = [X Y recta_X2 recta_XY];
 
 % Sumatorias de las columnas
 sumatoriaX = round(sum(X(:,1)),Redondeo);
@@ -340,3 +346,59 @@ a = [sumatoriaX2, sumatoriaX;
     sumatoriaX, filas];
 b = [sumatoriaXY ; sumatoriaY];
 matrizResultadoRecta = a\b;
+
+function parabola_minimos_cuadrados()
+
+global X Y Redondeo
+global TablaDeValoresParabola
+global matrizResultadoParabola
+
+[filas,~] = size(X);
+parabola_XY = filas;
+parabola_X2Y = filas;
+
+% Armo la columna de x al cuadrado
+parabola_X2 = round(X.^2, Redondeo);
+% Armo la columna de x al cubo
+parabola_X3 = round(X.^3, Redondeo);
+% Armo la columna de x a la cuarta
+parabola_X4 = round(X.^4, Redondeo);
+% Armo la columna de XY 
+for i=1:filas
+    parabola_XY(i,1) = round(X(i,1) * Y(i,1), Redondeo);
+end
+% Armo la columna de X2Y 
+for i=1:filas
+    parabola_X2Y(i,1) = round(parabola_X2(i,1) * Y(i,1), Redondeo);
+end
+
+% Tabla de valores
+TablaDeValoresParabola = [X Y parabola_X2 parabola_X3 parabola_X4 parabola_XY parabola_X2Y];
+
+% Sumatorias de las columnas
+sumatoriaX = round(sum(X(:,1)), Redondeo);
+sumatoriaX2 = round(sum(parabola_X2(:,1)), Redondeo);
+sumatoriaX3 = round(sum(parabola_X3(:,1)), Redondeo);
+sumatoriaX4 = round(sum(parabola_X4(:,1)), Redondeo);
+sumatoriaY = round(sum(Y(:,1)), Redondeo);
+sumatoriaXY = round(sum(parabola_XY(:,1)), Redondeo);
+sumatoriaX2Y = round(sum(parabola_X2Y(:,1)), Redondeo);
+
+% Sistemas de Ecuaciones
+a = [sumatoriaX4, sumatoriaX3, sumatoriaX2;
+    sumatoriaX3, sumatoriaX2, sumatoriaX;
+    sumatoriaX2, sumatoriaX, filas];
+b = [sumatoriaX2Y ; sumatoriaXY; sumatoriaY];
+matrizResultadoParabola = a\b;
+
+function exponencial_minimos_cuadrados()
+
+global X Y Redondeo
+
+function potencial_minimos_cuadrados()
+
+global X Y Redondeo
+
+function hiperbola_minimos_cuadrados()
+
+global X Y Redondeo
