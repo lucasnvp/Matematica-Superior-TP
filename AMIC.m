@@ -22,7 +22,7 @@ function varargout = AMIC(varargin)
 
 % Edit the above text to modify the response to help AMIC
 
-% Last Modified by GUIDE v2.5 01-Nov-2017 23:58:14
+% Last Modified by GUIDE v2.5 02-Nov-2017 01:44:34
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -179,13 +179,18 @@ end
 % --- Executes on button press in btn_cargar_datos.
 function btn_cargar_datos_Callback(hObject, eventdata, handles)
 
-global X Y
+global X Y Redondeo
+global matrizResultadoRecta
 
 set(handles.tabla_de_valores,'enable','off');
 datos_tabla_inicial = get(handles.tabla_de_valores,'Data');
 X = str2double(datos_tabla_inicial(:,1));
 Y = str2double(datos_tabla_inicial(:,2));
 
+recta_minimos_cuadrados();
+
+funcionAproximanteRecta = sprintf('P(x) = %f X + %f', round(matrizResultadoRecta(1,1),Redondeo), round(matrizResultadoRecta(2,1),Redondeo));
+set(handles.rcm_funcion_aproximante, 'String', funcionAproximanteRecta);
 
 % --------------------------------------------------------------------
 function Untitled_1_Callback(hObject, eventdata, handles)
@@ -304,3 +309,34 @@ function pmc_calculos_Callback(hObject, eventdata, handles)
 global NroCasoDeAproximacion
 NroCasoDeAproximacion = 2;
 AMIC_DetallesDeCalculos
+
+function recta_minimos_cuadrados()
+
+global X Y Redondeo
+global TablaDeValores
+global matrizResultadoRecta
+
+[filas,~] = size(X);
+recta_XY = filas;
+
+% Armo la columna de x al cuadrado
+recta_X2 = round(X.^2, Redondeo);
+% Armo la columna de XY 
+for i=1:filas
+    recta_XY(i,1) = round(X(i,1) * Y(i,1),Redondeo);
+end
+
+% Tabla de valores
+TablaDeValores = [X Y recta_X2 recta_XY];
+
+% Sumatorias de las columnas
+sumatoriaX = round(sum(X(:,1)),Redondeo);
+sumatoriaX2 = round(sum(recta_X2(:,1)),Redondeo);
+sumatoriaY = round(sum(Y(:,1)),Redondeo);
+sumatoriaXY = round(sum(recta_XY(:,1)),Redondeo);
+
+% Sistemas de Ecuaciones
+a = [sumatoriaX2, sumatoriaX; 
+    sumatoriaX, filas];
+b = [sumatoriaXY ; sumatoriaY];
+matrizResultadoRecta = a\b;

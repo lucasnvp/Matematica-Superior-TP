@@ -69,14 +69,8 @@ global X Y NroCasoDeAproximacion Redondeo
 XY = filas;
 switch NroCasoDeAproximacion
     case 1 % Caso de Recta
-        % Armo la columna de x al cuadrado
-        X2 = round(X.^2, Redondeo);
-        % Armo la columna de XY 
-        for i=1:filas
-            XY(i,1) = round(X(i,1) * Y(i,1),Redondeo);
-        end
-        
-        valores_tabla = [X Y X2 XY];
+        global TablaDeValores
+        valores_tabla = TablaDeValores;
         encabezado_tabla_detalles = {'X' 'Y' 'X^2' 'X*Y'};
     
     case 2 % Caso de Parabola
