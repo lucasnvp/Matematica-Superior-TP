@@ -129,7 +129,18 @@ switch NroCasoDeAproximacion
         encabezado_tabla_detalles = {'X' 'Y' 'Ln X' 'X^2' 'Ln Y' 'X*Y'};
         
     case 5 % Caso de Hiperbola
+        % Armo la columna de 1/x
+        Xinv = round(X.^-1, Redondeo);
+        % Armo la columna de 1/x al cuadrado
+        X2 = round(X.^-2, Redondeo);
+        % Armo la columna de XY 
+        for i=1:filas
+            XY(i,1) = round(Xinv(i,1) * Y(i,1), Redondeo);
+        end
         
+        valores_tabla = [X Y Xinv X2 XY];
+        encabezado_tabla_detalles = {'X' 'Y' '1 / X' '1 / X^2' 'X*Y'};
+
 end
 
 set(handles.tabla_de_calculos,'Data',valores_tabla);
