@@ -22,7 +22,7 @@ function varargout = AMIC(varargin)
 
 % Edit the above text to modify the response to help AMIC
 
-% Last Modified by GUIDE v2.5 01-Nov-2017 22:20:28
+% Last Modified by GUIDE v2.5 01-Nov-2017 23:58:14
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -120,6 +120,8 @@ end
 
 % --- Executes on button press in set_default.
 function set_default_Callback(hObject, eventdata, handles)
+global Redondeo
+
 Filas = str2double(get(handles.cantPuntos,'String'));
 Redondeo = str2double(get(handles.cantDecimales,'String'));
 set(handles.txtCantPuntos,'visible','off');
@@ -210,4 +212,90 @@ function rmc_funcion_Callback(hObject, eventdata, handles)
 function rmc_calculos_Callback(hObject, eventdata, handles)
 global NroCasoDeAproximacion
 NroCasoDeAproximacion = 1;
+AMIC_DetallesDeCalculos
+
+
+% --------------------------------------------------------------------
+function Untitled_4_Callback(hObject, eventdata, handles)
+% hObject    handle to Untitled_4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function Untitled_5_Callback(hObject, eventdata, handles)
+% hObject    handle to Untitled_5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function Untitled_6_Callback(hObject, eventdata, handles)
+% hObject    handle to Untitled_6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function ah_funcion_Callback(hObject, eventdata, handles)
+% hObject    handle to ah_funcion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function ah_calculos_Callback(hObject, eventdata, handles)
+% hObject    handle to ah_calculos (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global NroCasoDeAproximacion
+NroCasoDeAproximacion = 5;
+AMIC_DetallesDeCalculos
+
+% --------------------------------------------------------------------
+function ap_funcion_Callback(hObject, eventdata, handles)
+% hObject    handle to ap_funcion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function ap_calculos_Callback(hObject, eventdata, handles)
+% hObject    handle to ap_calculos (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global NroCasoDeAproximacion
+NroCasoDeAproximacion = 4;
+AMIC_DetallesDeCalculos
+
+% --------------------------------------------------------------------
+function ae_funcion_Callback(hObject, eventdata, handles)
+% hObject    handle to ae_funcion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function ae_calculos_Callback(hObject, eventdata, handles)
+% hObject    handle to ae_calculos (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global NroCasoDeAproximacion
+NroCasoDeAproximacion = 3;
+AMIC_DetallesDeCalculos
+
+% --------------------------------------------------------------------
+function pmc_funcion_Callback(hObject, eventdata, handles)
+% hObject    handle to pmc_funcion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function pmc_calculos_Callback(hObject, eventdata, handles)
+% hObject    handle to pmc_calculos (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global NroCasoDeAproximacion
+NroCasoDeAproximacion = 2;
 AMIC_DetallesDeCalculos

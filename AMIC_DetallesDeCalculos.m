@@ -62,13 +62,23 @@ guidata(hObject, handles);
 % uiwait(handles.figure1);
 
 % Valores Globales
-global X Y NroCasoDeAproximacion
+global X Y NroCasoDeAproximacion Redondeo
 
 % Cargo los valores a la tabla segun sea la aproximacion
+[filas,~] = size(X);
+XY = filas;
 switch NroCasoDeAproximacion
-    case 1
-        valores_tabla = [X Y];
-        encabezado_tabla_detalles = {'X' 'Y'};
+    case 1 % Caso de Recta
+        % Armo la columna de x al cuadrado
+        X2 = round(X.^2, Redondeo);
+        
+        % Armo la columna de XY 
+        for i=1:filas
+            XY(i,1) = round(X(i,1) * Y(i,1),Redondeo);
+        end
+        
+        valores_tabla = [X Y X2 XY];
+        encabezado_tabla_detalles = {'X' 'Y' 'X^2' 'X*Y'};
 end
 
 set(handles.tabla_de_calculos,'Data',valores_tabla);
