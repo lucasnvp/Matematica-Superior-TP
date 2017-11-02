@@ -22,7 +22,7 @@ function varargout = AMIC(varargin)
 
 % Edit the above text to modify the response to help AMIC
 
-% Last Modified by GUIDE v2.5 02-Nov-2017 16:38:03
+% Last Modified by GUIDE v2.5 02-Nov-2017 16:41:00
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -272,10 +272,10 @@ function Untitled_6_Callback(hObject, eventdata, handles)
 
 
 % --------------------------------------------------------------------
-function ah_funcion_Callback(hObject, eventdata, handles)
-% hObject    handle to ah_funcion (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
+function ah_grafica_Callback(hObject, eventdata, handles)
+global X Px matrizResultadoHiperbola
+Px = matrizResultadoHiperbola(1,1) + (matrizResultadoHiperbola(2,1)* (1./X));
+AMIC_grafico
 
 
 % --------------------------------------------------------------------
