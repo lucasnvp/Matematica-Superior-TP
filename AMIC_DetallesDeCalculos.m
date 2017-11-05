@@ -70,7 +70,6 @@ global TablaDeValoresParabola
 global TablaDeValoresExponencial
 global TablaDeValoresPotencial
 global TablaDeValoresHiperbola
-global TablaDeValoresComparacion
 
 switch NroCasoDeAproximacion
     case 1 % Caso de Recta
@@ -93,9 +92,6 @@ switch NroCasoDeAproximacion
         valores_tabla = TablaDeValoresHiperbola;
         encabezado_tabla_detalles = {'X' 'Y' '1 / X' '1 / X^2' 'X*Y'};
 
-    case 6 % Caso de Comparaciones
-        valores_tabla = TablaDeValoresComparacion;
-        encabezado_tabla_detalles = {'X' 'Y' 'Recta' 'Error Recta' 'Parabola' 'Error Parabola' 'Exponencial' 'Error Exponencial' 'Potencial' 'Error Potencial' 'Hiperbola' 'Error Hiperbola'};
 end
 
 set(handles.tabla_de_calculos,'Data',valores_tabla);

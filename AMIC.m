@@ -554,14 +554,12 @@ end
 % --------------------------------------------------------------------
 function comparar_Callback(hObject, eventdata, handles)
 global X Y TablaDeValoresComparacion
-global NroCasoDeAproximacion
 global ErrorRecta PxRecta
 global ErrorParabola PxParabola
 global ErrorExponencial PxExponencial
 global ErrorPotencial PxPotencial
 global ErrorHiperbola PxHiperbola
 
-TablaDeValoresComparacion = [X Y PxRecta ErrorRecta PxParabola ErrorParabola PxExponencial ErrorExponencial PxPotencial ErrorPotencial PxHiperbola ErrorHiperbola];
+TablaDeValoresComparacion = [X Y PxRecta PxParabola PxExponencial PxPotencial PxHiperbola ErrorRecta ErrorParabola ErrorExponencial ErrorPotencial ErrorHiperbola];
 
-NroCasoDeAproximacion = 6;
-AMIC_DetallesDeCalculos
+AMIC_DetallesDeComparaciones
